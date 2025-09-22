@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xFFFF8A65), // light orange
+                      Color(0xFFCD4917), // light orange
                       Color(0xFFFF7043), // deep orange
                       Color(0xFFE53935), // red
                     ],

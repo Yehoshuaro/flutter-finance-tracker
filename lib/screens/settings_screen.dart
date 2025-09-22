@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.light_mode,
-                        color: themeProvider.themeMode == ThemeMode.light && !themeProvider.useSystemTheme && !themeProvider.isSunset ? Theme.of(context).colorScheme.primary : null,
+                        color: themeProvider.themeMode == ThemeMode.light && !themeProvider.useSystemTheme && !themeProvider.isSunset && !themeProvider.isCyanDark && !themeProvider.isForestDark ? Theme.of(context).colorScheme.primary : null,
                       ),
                       tooltip: t.translate('lightTheme'),
                       onPressed: () => themeProvider.setThemeMode(ThemeMode.light),
@@ -57,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.dark_mode,
-                        color: themeProvider.themeMode == ThemeMode.dark && !themeProvider.useSystemTheme && !themeProvider.isSunset ? Theme.of(context).colorScheme.primary : null,
+                        color: themeProvider.themeMode == ThemeMode.dark && !themeProvider.useSystemTheme && !themeProvider.isSunset && !themeProvider.isCyanDark && !themeProvider.isForestDark ? Theme.of(context).colorScheme.primary : null,
                       ),
                       tooltip: t.translate('darkTheme'),
                       onPressed: () => themeProvider.setThemeMode(ThemeMode.dark),
@@ -69,6 +69,22 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       tooltip: t.translate('sunsetTheme'),
                       onPressed: () => themeProvider.setSunsetTheme(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.blur_on,
+                        color: themeProvider.isCyanDark ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      tooltip: t.translate('cyanTheme'),
+                      onPressed: () => themeProvider.setCyanDarkTheme(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.park,
+                        color: themeProvider.isForestDark ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      tooltip: t.translate('forestTheme'),
+                      onPressed: () => themeProvider.setForestDarkTheme(),
                     ),
                   ],
                 ),
