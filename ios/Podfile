@@ -1,0 +1,103 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '13.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
+
+post_install do |installer|
+  # Apply general settings to all targets
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      # Set deployment target for all targets
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+
+      # Only apply additional settings to native targets
+      if target.is_a?(Xcodeproj::Project::Object::PBXNativeTarget)
+        flutter_additional_ios_build_settings(target)
+
+        # Exclude arm64 for simulator to fix build on Apple Silicon
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+        
+        # You can enable the permissions needed here
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+          '$(inherited)',
+          'PERMISSION_CAMERA=1',
+          'PERMISSION_PHOTOS=1',
+          'PERMISSION_LOCATION=1',
+        ]
+
+        # Fix for symlinks warning
+        if target.respond_to?(:shell_script_build_phases)
+          target.shell_script_build_phases.each do |phase|
+            if phase.name == 'Create Symlinks to Header Folders'
+              phase.always_out_of_date = "1"
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # Find the BoringSSL-GRPC target
+  boringssl_grpc_target = installer.pods_project.targets.find { |target| target.name == 'BoringSSL-GRPC' }
+
+  # Apply fixes specifically to the BoringSSL-GRPC target if found and if it is a PBXNativeTarget
+  if boringssl_grpc_target && boringssl_grpc_target.is_a?(Xcodeproj::Project::Object::PBXNativeTarget)
+    boringssl_grpc_target.build_configurations.each do |config|
+      # Reset all compiler flags
+      config.build_settings['OTHER_CFLAGS'] = '-Wno-shorten-64-to-32 -Wno-error=implicit-function-declaration'
+      config.build_settings['OTHER_CPLUSPLUSFLAGS'] = '-Wno-shorten-64-to-32 -Wno-error=implicit-function-declaration'
+      config.build_settings['GCC_OPTIMIZATION_LEVEL'] = '0'
+      config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+
+      # Add necessary preprocessor definitions
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'OPENSSL_NO_ASM=1'
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'].uniq
+    end
+
+    # Fix for BoringSSL-GRPC compilation by removing -G flag from source files
+    boringssl_grpc_target.source_build_phase.files.each do |file|
+      if file.settings && file.settings['COMPILER_FLAGS']
+        flags = file.settings['COMPILER_FLAGS'].split(' ')
+        flags.reject! { |flag| flag == '-G' }
+        file.settings['COMPILER_FLAGS'] = flags.join(' ')
+      end
+    end
+  end
+end
+
+# Helper function to add build settings (kept for flutter_additional_ios_build_settings)
+def flutter_additional_ios_build_settings(target)
+  # Add any additional build settings here if needed for all targets
+end 
