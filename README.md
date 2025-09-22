@@ -1,16 +1,13 @@
-# tracker
+# Flutter Finance Tracker
 
-A new Flutter project.
+A simple and lightweight **personal finance tracker** built with Flutter.  
+This project helps users manage their daily expenses, track transactions, and visualize financial data in a clean and intuitive UI.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Yehoshuaro/flutter-finance-tracker.git
+   cd flutter-finance-tracker
+2. Get dependencies: flutter pub get
+3. Run the app: flutter run
