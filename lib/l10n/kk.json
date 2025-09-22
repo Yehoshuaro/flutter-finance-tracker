@@ -19,6 +19,7 @@
   "systemDefault": "Жүйелік",
   "darkTheme": "Қараңғы тақырып",
   "lightTheme": "Ашық тақырып",
+  "sunsetTheme": "Күн батардағы градиент",
   "selectLanguage": "Тілді таңдаңыз",
   "english": "English",
   "russian": "Русский",
@@ -49,5 +50,7 @@
   "shopping": "Дүкен",
   "bills": "Шоттар",
   "entertainment": "Ойын-сауық",
-  "salary": "Жалақы"
+  "salary": "Жалақы",
+  "profileGreeting": "Профиліңіз",
+  "profileActions": "Әрекеттер"
 } 

@@ -19,6 +19,7 @@
   "systemDefault": "System default",
   "darkTheme": "Dark theme",
   "lightTheme": "Light theme",
+  "sunsetTheme": "Sunset gradient",
   "selectLanguage": "Select language",
   "english": "English",
   "russian": "Русский",
@@ -49,5 +50,7 @@
   "shopping": "Shopping",
   "bills": "Bills",
   "entertainment": "Entertainment",
-  "salary": "Salary"
+  "salary": "Salary",
+  "profileGreeting": "Your profile",
+  "profileActions": "Actions"
 } 

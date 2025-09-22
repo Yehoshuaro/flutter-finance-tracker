@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.light_mode,
-                        color: themeProvider.themeMode == ThemeMode.light && !themeProvider.useSystemTheme ? Theme.of(context).colorScheme.primary : null,
+                        color: themeProvider.themeMode == ThemeMode.light && !themeProvider.useSystemTheme && !themeProvider.isSunset ? Theme.of(context).colorScheme.primary : null,
                       ),
                       tooltip: t.translate('lightTheme'),
                       onPressed: () => themeProvider.setThemeMode(ThemeMode.light),
@@ -57,10 +57,18 @@ class SettingsScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.dark_mode,
-                        color: themeProvider.themeMode == ThemeMode.dark && !themeProvider.useSystemTheme ? Theme.of(context).colorScheme.primary : null,
+                        color: themeProvider.themeMode == ThemeMode.dark && !themeProvider.useSystemTheme && !themeProvider.isSunset ? Theme.of(context).colorScheme.primary : null,
                       ),
                       tooltip: t.translate('darkTheme'),
                       onPressed: () => themeProvider.setThemeMode(ThemeMode.dark),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.gradient,
+                        color: themeProvider.isSunset ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      tooltip: t.translate('sunsetTheme'),
+                      onPressed: () => themeProvider.setSunsetTheme(),
                     ),
                   ],
                 ),

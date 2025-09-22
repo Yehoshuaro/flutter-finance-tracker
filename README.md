@@ -9,5 +9,9 @@ This project helps users manage their daily expenses, track transactions, and vi
    ```bash
    git clone https://github.com/Yehoshuaro/flutter-finance-tracker.git
    cd flutter-finance-tracker
-2. Get dependencies: flutter pub get
-3. Run the app: flutter run
+2. Get dependencies: 
+   ```bash
+   flutter pub get
+3. Run the app: 
+   ```bash
+   flutter run

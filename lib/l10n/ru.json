@@ -19,6 +19,7 @@
   "systemDefault": "Системная",
   "darkTheme": "Темная тема",
   "lightTheme": "Светлая тема",
+  "sunsetTheme": "Градиент заката",
   "selectLanguage": "Выберите язык",
   "english": "English",
   "russian": "Русский",
@@ -49,5 +50,7 @@
   "shopping": "Покупки",
   "bills": "Счета",
   "entertainment": "Развлечения",
-  "salary": "Зарплата"
+  "salary": "Зарплата",
+  "profileGreeting": "Ваш профиль",
+  "profileActions": "Действия"
 } 
