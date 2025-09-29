@@ -116,10 +116,10 @@ class _RootNavigationState extends State<RootNavigation> {
 
     final int newItemsLength = (
         1 + // Home
-            1 + // About
-            1 + // Financial Advice
-            (!isGuest ? 1 : 0) + // Profile
-            (!isGuest ? 1 : 0) // Settings
+        1 + // About
+        1 + // Financial Advice
+        (!isGuest ? 1 : 0) + // Profile
+        (!isGuest ? 1 : 0) // Settings
     );
 
     if (navigationProvider.selectedIndex >= newItemsLength) {
@@ -153,7 +153,7 @@ class _RootNavigationState extends State<RootNavigation> {
 
     int currentIndex = navigationProvider.selectedIndex;
     if (currentIndex >= pages.length) {
-      currentIndex = 0;
+        currentIndex = 0;
     }
 
     return Scaffold(
@@ -166,14 +166,14 @@ class _RootNavigationState extends State<RootNavigation> {
           if (isGuest) {
             final selectedItemLabel = items[i].label;
             if (selectedItemLabel == translations.translate('profile') || selectedItemLabel == translations.translate('settings')) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please log in to access this feature')),
-              );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Please log in to access this feature')),
+                );
             } else {
-              navigationProvider.setSelectedIndex(i);
+                 navigationProvider.setSelectedIndex(i);
             }
           } else {
-            navigationProvider.setSelectedIndex(i);
+             navigationProvider.setSelectedIndex(i);
           }
         },
       ),
