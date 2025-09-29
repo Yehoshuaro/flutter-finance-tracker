@@ -2,10 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class FinancialAdviceService {
-  static const String _baseUrl = 'https://api.openai.com/v1/chat/completions';
-  final String apiKey;
-
-  FinancialAdviceService(this.apiKey);
+  static const String _baseUrl = 'http://localhost:3000/api/chat';
 
   Future<String> getFinancialAdvice(Map<String, dynamic> spendingData) async {
     try {
@@ -13,7 +10,6 @@ class FinancialAdviceService {
         Uri.parse(_baseUrl),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $apiKey',
         },
         body: jsonEncode({
           'model': 'gpt-4o-mini',
@@ -24,7 +20,8 @@ class FinancialAdviceService {
             },
             {
               'role': 'user',
-              'content': 'Here are my spending patterns, please provide specific advice on how to improve my financial situation: ${jsonEncode(spendingData)}',
+              'content':
+              'Here are my spending patterns, please provide specific advice on how to improve my financial situation: ${jsonEncode(spendingData)}',
             },
           ],
           'temperature': 0.7,
@@ -37,7 +34,8 @@ class FinancialAdviceService {
         return data['choices'][0]['message']['content'];
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception('Failed to get financial advice: ${errorData['error']['message']}');
+        throw Exception(
+            'Failed to get financial advice: ${errorData['error']['message']}');
       }
     } catch (e) {
       return 'Не удалось получить финансовый совет: $e';

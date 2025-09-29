@@ -40,7 +40,7 @@ class _FinancialAdviceScreenState extends State<FinancialAdviceScreen> {
       ),
     };
 
-    final financialService = FinancialAdviceService(apiKey);
+    final financialService = FinancialAdviceService();
     final advice = await financialService.getFinancialAdvice(spendingData);
 
     setState(() {
