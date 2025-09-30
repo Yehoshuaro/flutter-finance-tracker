@@ -28,7 +28,7 @@
   "guestMode": "Гостевой режим: Войдите для полного доступа.",
   "notLoggedIn": "Не авторизован",
   "pleaseLogin": "Пожалуйста, войдите для доступа к этой функции",
-  "welcome": "Добро пожаловать",
+  "welcome": "Транзакции за все время",
   "income": "Доход",
   "expense": "Расход",
   "monthlySummary": "Итого за месяц",
@@ -54,5 +54,13 @@
   "entertainment": "Развлечения",
   "salary": "Зарплата",
   "profileGreeting": "Ваш профиль",
-  "profileActions": "Действия"
-} 
+  "profileActions": "Действия",
+  "aboutTitle": "О приложении",
+  "aboutDescription": "Этот проект был разработан студентами третьего курса Astana IT University для предмета Research Methods and Tools.",
+  "developers": "Разработчики",
+  "contactUs": "Свяжитесь с нами",
+  "emailContact": "Email для связи",
+  "phoneContact": "Телефон для связи",
+  "developedBy": "Разработано:",
+  "currentBalance": "Текущий баланс"
+}

@@ -28,9 +28,9 @@ class TransactionProvider with ChangeNotifier {
 
   double get totalExpense => _transactions
       .where((t) => t.type == TransactionType.expense)
-      .fold(0, (sum, t) => sum + t.amount);
+      .fold(0, (sum, t) => sum + t.amount.abs());
 
-  double get balance => totalIncome - totalExpense;
+  double get balance => totalIncome + totalExpense;
 
   void addTransaction(Transaction transaction) {
     _transactions.add(transaction);
@@ -103,4 +103,4 @@ class TransactionProvider with ChangeNotifier {
   //     await _userPrefsService.saveTransactionsToFirestore(user.uid, _transactions);
   //   }
   // }
-} 
+}

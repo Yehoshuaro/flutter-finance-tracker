@@ -224,49 +224,95 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBalanceCard(Translations t) {
-    final transactions = context.watch<TransactionProvider>().transactions;
-    final balance = transactions.fold<double>(
-      0,
-      (sum, transaction) => sum + (transaction.type == TransactionType.income ? transaction.amount : -transaction.amount),
-    );
+  String _formatWithSpaces(double value) {
+    String numStr = value.toStringAsFixed(0);
+    final buffer = StringBuffer();
+    for (int i = 0; i < numStr.length; i++) {
+      if (i > 0 && (numStr.length - i) % 3 == 0) {
+        buffer.write(' ');
+      }
+      buffer.write(numStr[i]);
+    }
+    return buffer.toString();
+  }
 
-    return GestureDetector(
-      onDoubleTap: () {
-        setState(() {
-          _isChartExpanded = !_isChartExpanded;
-        });
-      },
-      child: Card(
-        margin: const EdgeInsets.all(16),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          height: _isChartExpanded ? 200 : 100,
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    t.translate('welcome'),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      '₸${balance.toStringAsFixed(2)}',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: balance >= 0 ? Colors.green : Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+  Widget _buildBalanceCard(Translations t) {
+    final transactionProvider = context.watch<TransactionProvider>();
+    final income = transactionProvider.totalIncome;
+    final expense = transactionProvider.totalExpense.abs(); // Используем абсолютное значение расходов
+    final balance = income - expense; // Правильный подсчет баланса
+    final totalAmount = income + expense; // Общая сумма всех транзакций (для отображения оборота)
+
+    return Card(
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              t.translate('welcome'),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
+            const SizedBox(height: 16),
+            Text(
+              t.translate('transactionsForAllTime'),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              '${_formatWithSpaces(totalAmount)} ₸',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(t.translate('currentBalance')),
+                    Text(
+                      '${_formatWithSpaces(balance)} ₸',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: balance >= 0 ? Colors.green : Colors.red,
+                          ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(t.translate('income')),
+                        Text(
+                          '+${_formatWithSpaces(income)} ₸',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(color: Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(t.translate('expense')),
+                        Text(
+                          '-${_formatWithSpaces(expense)} ₸',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(color: Colors.red),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -632,4 +678,4 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     Navigator.pop(context);
   }
-} 
+}

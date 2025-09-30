@@ -28,7 +28,7 @@
   "guestMode": "Қонақ режимі: Толық қол жеткізу үшін кіріңіз.",
   "notLoggedIn": "Кірілмеген",
   "pleaseLogin": "Бұл функцияға қол жеткізу үшін кіріңіз",
-  "welcome": "Қош келдіңіз",
+  "welcome": "Барлық уақыттағы транзакциялар",
   "income": "Табыс",
   "expense": "Шығын",
   "monthlySummary": "Айлық қорытынды",
@@ -54,5 +54,13 @@
   "entertainment": "Ойын-сауық",
   "salary": "Жалақы",
   "profileGreeting": "Профиліңіз",
-  "profileActions": "Әрекеттер"
-} 
+  "profileActions": "Әрекеттер",
+  "transactionsForAllTime": "Барлық транзакциялардың сомасы",
+  "aboutTitle": "Қолданба туралы",
+  "aboutDescription": "Бұл жоба Astana IT University-дің үшінші курс студенттерімен Research Methods and Tools пәні үшін әзірленген.",
+  "developers": "Әзірлеушілер",
+  "contactUs": "Бізбен байланысыңыз",
+  "emailContact": "Байланыс email-і",
+  "phoneContact": "Байланыс телефоны",
+  "developedBy": "Әзірлегендер:"
+}
